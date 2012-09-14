@@ -45,7 +45,7 @@ class FlagInstance(models.Model):
     user = models.ForeignKey(User) # user flagging the content
     when_added = models.DateTimeField(default=datetime.now)
     when_recalled = models.DateTimeField(null=True) # if recalled at all
-    category = models.ForeignKey(FlagCategory)
+    category = models.ForeignKey(FlagCategory, null=True)
     comment = models.TextField() # comment by the flagger
 
 
