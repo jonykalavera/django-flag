@@ -25,6 +25,7 @@ def flag(request):
     
     content_object = content_type.get_object_for_this_type(id=object_id)
     
+    category=None
     if category_id:
         try:
             category = FlagCategory.objects.get(pk=category_id)
