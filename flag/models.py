@@ -33,7 +33,7 @@ class FlaggedContent(models.Model):
     class Meta:
         unique_together = [("content_type", "object_id")]
 
-class FlagCategory(modelss.Model):
+class FlagCategory(models.Model):
     name = models.TextField()
     
     def __unicode__(self):
