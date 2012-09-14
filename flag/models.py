@@ -19,7 +19,6 @@ STATUS = getattr(settings, "FLAG_STATUSES", [
     ("5", _("content removed by moderator")),
 ])
 
-
 class FlaggedContent(models.Model):
     
     content_type = models.ForeignKey(ContentType)
@@ -34,6 +33,11 @@ class FlaggedContent(models.Model):
     class Meta:
         unique_together = [("content_type", "object_id")]
 
+class FlagCategory(modelss.Model):
+    name = models.TextField()
+    
+    def __unicode__(self):
+        return unicode(self.name)
 
 class FlagInstance(models.Model):
     
@@ -41,10 +45,11 @@ class FlagInstance(models.Model):
     user = models.ForeignKey(User) # user flagging the content
     when_added = models.DateTimeField(default=datetime.now)
     when_recalled = models.DateTimeField(null=True) # if recalled at all
+    category = models.ForeignKey(FlagCategory)
     comment = models.TextField() # comment by the flagger
 
 
-def add_flag(flagger, content_type, object_id, content_creator, comment, status=None):
+def add_flag(flagger, content_type, object_id, content_creator, comment, category=None, status=None):
     
     # check if it's already been flagged
     defaults = dict(creator=content_creator)
@@ -65,7 +70,8 @@ def add_flag(flagger, content_type, object_id, content_creator, comment, status=
     flag_instance = FlagInstance(
         flagged_content = flagged_content,
         user = flagger,
-        comment = comment
+        comment = comment,
+        category = category,
     )
     flag_instance.save()
     

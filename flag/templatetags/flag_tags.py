@@ -2,6 +2,7 @@ from django import template
 
 from django.contrib.contenttypes.models import ContentType
 
+from flag.models import FlagCategory
 
 register = template.Library()
 
@@ -19,4 +20,5 @@ def flag(context, content_object, creator_field):
         "creator_field": creator_field,
         "request": request,
         "user": request.user,
+        "categories": FlagCategory.objects.all(),
     }

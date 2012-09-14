@@ -1,6 +1,11 @@
 <form method="POST" action="{% url flag %}">
     {% csrf_token %}
     <table>
+        {% if categories %}
+        <tr><td><select id="id_category" name="category">{% for category in categories %}
+            <option value="{{category.pk}}">{{category}}</option>
+        {% endfor %}</select></td></tr>
+        {% endif %}
         <tr><td><textarea id="id_comment" rows="10" cols="40" name="comment"></textarea></td></tr>
         <tr>
             <td><input type="hidden" name="object_id" value="{{ object_id }}" />
