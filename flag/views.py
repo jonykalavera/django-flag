@@ -38,7 +38,7 @@ def flag(request):
     
     add_flag(request.user, content_type, object_id, creator, comment, category)
     messages.add_message(request, messages.INFO, _("You have added a flag. A "
-        "moderator will review your submission shortly.")
+        "moderator will review your submission shortly."))
     
     if next:
         return HttpResponseRedirect(next)
