@@ -26,7 +26,7 @@ def flag(request):
     content_object = content_type.get_object_for_this_type(id=object_id)
     
     if category_id:
-        try
+        try:
             category = FlagCategory.objects.get(pk=category_id)
         except FlagCategory.DoesNotExist:
             category = None
